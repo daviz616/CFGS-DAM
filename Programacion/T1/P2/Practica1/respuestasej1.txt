@@ -1,0 +1,15 @@
+David Castejón García
+
+¿Funciona Sumaenteros.c?
+
+Funciona de manera limitada, ya que al introducir numeros impares no logra extraer los decimales que supone operar con estos números.
+
+¿Funciona Sumafloat.c?
+
+Bajo mi punto de vista creo que es la mejor opción de las tres, debido a que puedes introducir numeros enteros o decimales y te proporciona los datos con mayor exactitud(decimal), algo que siempre es de agrado.
+
+¿Funciona Sumamixta.c?
+Realmente si funciona correctamente la división es el único resultado que contendría decimales en este caso y te lo da de tal forma, lo que pasa es que los numeros que podemos introducir son más limitados que en el caso Sumafloat.
+
+
+

@@ -1,0 +1,10 @@
+David Castejón García
+
+Si sumas uno te da en decimal 98 y en ascii b, ya que interpreta a con el código ascii
+¿Que ocurriría si le sumas dos?
+
+La respuesta variaría a en decimal 99 y en ascii a c
+
+¿Que ocurriría si le sumas 28?
+Cambiaría a 125 en decimal y en ascii sería } 
+
