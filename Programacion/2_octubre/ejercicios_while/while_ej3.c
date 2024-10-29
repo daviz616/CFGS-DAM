@@ -16,7 +16,7 @@
 	
 	do{
 		cociente = n / 10;
-		resto+= n % 10;
+		resto = resto * 10 + (n % 10);
 		n = cociente;
 	} while (cociente != 0);
 
