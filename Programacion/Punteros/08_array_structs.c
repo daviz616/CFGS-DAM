@@ -40,15 +40,21 @@ char * toString(Estudiante estu){
 	//return estudiante_nuevo;
 //}
 
+//Crea una función que cree una cadena de texto con la información del estudiante (Puedes empezar creando una función que imprima por pantalla la info de un estudiante).
 void inicializar(Estudiante * estudiante_a_rellenar, char * nombre, int edad, float nota){
 	//estudiante_a_rellenar.edad = edad; Esto no compila porque estudiante_a_rellenar es un puntero y no un estudiante. Hbría que hacer (*estudiante_a_rellenar).edad, es decir, acceder al contenido del puntero para poder así acceder al campo "edad" del Estudiante.
 	//En lugar de hacer esto, lo que C permite es utilizar el operador "->".
 	//estudiante_a_relllenar.nota = nota;
 	//estudiante_a_rellenar.nombre = nombre; No funciona porque no se completa la dirección de memoria como debería
-	strcpy(estudiante_a_rellenar.nombre,nombre);
+	strcpy(estudiante_a_rellenar->nombre,nombre);
 	estudiante_a_rellenar->nota = nota;
 	estudiante_a_rellenar->edad = edad;
 }
+
+void cumpleanios(Estudiante * cumpleanero){
+
+}
+
 int main() {
 	Estudiante listado[MAX_ESTUDIANTES];//Aqui se reserva la memoria para los estudiantes. 500 bytes.
 	int num_estudiantes;
@@ -79,7 +85,9 @@ int main() {
 	//for (int i = 0; i<num; i++){
    	//	printf("%s\n\n",toString(listado[i])); 
 	//}
-	
+	printf("Edad antigua de %s: %d\n", listado[0].nombre, listado->edad);
+	cumpleanios(&listado[0]);
+	printf("Edad nueva: %d\n",listado[0].edad);// también es válido: ,(*listado).edad);listado->edad	
 
     return 0;
 }
