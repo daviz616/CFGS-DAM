@@ -1,63 +1,100 @@
 #include <stdio.h>
 #include <string.h>
 
+// Definición de un enumerador para las categorías literarias.
+// Uso de valores enteros asociados a los géneros, lo que simplifica las comparaciones.
 typedef enum {
-    FICTION,
-    NON_FICTION,
-    POETRY,
-    THEATER,
-    ESSAY
+    FICTION, //0
+    NON_FICTION,//1
+    POETRY,//2
+    THEATER,//3
+    ESSAY//4
 } Category;
 
+// Estructura para almacenar la información de un libro.
+// Incluye detalles clave como el ID único, título, autor, precio, género y cantidad disponible.
 typedef struct {
     int id;
     char title[80];
-    char author[40];
+    char author[60];
     float price;
-    Category genre;
+    Category genre; // Categoría del libro, usando el enum de antes 'Category'.
     int quantity;
 } Book;
 
 #define MAX_BOOKS 40
 
-void printBooks(const Book OneBook){
-    printf("Libro seleccionado: \n");
-    scanf("%s", *OneBook);
+// Imprime los detalles de un libro específico.
+// Uso de un puntero constante 'const Book *' para evitar modificar el contenido del libro.
+void printBook(const Book * OneBook){
+    printf("%d, %s, %s, %.2f, %d, %d. \n",  OneBook->id, OneBook->title,OneBook->author,OneBook->price,OneBook->genre,OneBook->quantity);
+
 }
 
+// Imprime los detalles de todos los libros del catálogo.
+// Se pasa un puntero constante al inicio del array para garantizar que no se modifique.
 void printAllBooks( const Book * catalog){
     for(int i = 0; i < MAX_BOOKS; i++){
-        printf("Catalogo de libros", );
+        printBook(&catalog[i]);
         }
 }
 
-
-/*void printIDBook( const Book * catalog, int * id){
+// Busca e imprime un libro por su ID introducido por el usuario.
+// Uso de paso por referencia para evitar copiar todo el catálogo.
+void printIDBook( const Book * catalog){
+     // La función recibe un puntero constante a un array de libros 'catalog'.
+    // Esto significa que se trabaja directamente con la dirección de memoria del catálogo,
+    // en lugar de hacer una copia completa de los datos. 
+    // Además, el 'const' asegura que esta función no puede modificar los datos del catálogo.
+    int id;
+    printf("Introduce the ID of the book that you want: ");
+    scanf("%d", &id);
     for(int i = 0; i < MAX_BOOKS ; i++){
+        if (catalog[i].id == id){
+            printBook(&catalog[i]);
+        }
+    }
+}// Si el ID no coincide con ningún libro, simplemente no se realiza ninguna acción.
 
-        printf("Introduce el ID del libro: ");
-        scanf("%d", Book->id);
+
+// Incrementa el stock de un libro específico.
+// Paso por referencia (no constante) para modificar el catálogo directamente.
+void printStockIDQuantity(Book * catalog){
+    int id;
+    printf("Introduce the ID of the book that you want to increase: ");
+    scanf("%d", &id);
+    int PlusBook; 
+    printf("Introduce the quantity of the book to increase ");
+    scanf("%d",&PlusBook);
+
+    for(int i = 0; i < MAX_BOOKS ; i++){
+        if (catalog[i].id == id){
+            catalog[i].quantity += PlusBook;
+            printf("Stock aumented\n ");
+            printBook(&catalog[i]);
+            return;
         }
+    }
 }
-*/
-/*void printStockIDQuantity( const Book * catalog){
-    for(int i = 0; i < ; i++){
-        printf("");
+
+// Filtra e imprime los libros de una categoría específica.
+// Modifica el uso del catálogo para extraer libros de un género concreto.
+void printBookCategory(Book * catalog){
+    int category_number; 
+    printf("Please put the number of the category u want to see(0-FICTION,1-NON-FICTION,2-POETRY,3-THEATER,4-ESSAY:");      
+    scanf("%d", &category_number);   
+    if(category_number < 5){
+        printf("Books in that category:\n");
+        for(int i = 0; i < MAX_BOOKS; i++){
+              if (catalog[i].genre == category_number) {
+                    printBook(&catalog[i]);
+            }
+        
+            }
         }
-}
-*/
-/*void printCategoryAll( const Book * catalog){
-    for(int i = 0; i < ; i++){
-        printf("");
-        }
-}
-*/
-/*void printAllBooks( const Book * catalog){
-   for(int i = 0; i < ; i++){
-        printf("");
-        }
-}
-*/
+    }
+
+
 int main(){
 
     Book catalog[MAX_BOOKS] = {
@@ -103,6 +140,7 @@ int main(){
         {40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
     }; 
 
+//Podriamos intentar hacer un switch para la línea de comandos lo tengo totalmente incompleto, mejor ignorar por el momento.
    /* switch(){
     case "./biblioteca mostrar":
             printAllBooks(&catalog[0]);//muestra todos los libros 
@@ -122,8 +160,13 @@ int main(){
 
     }
 */
-    printAllBooks(&catalog[0]);//muestra todos los libros 
-    printIDBook(&catalog[0], &id[0]);//muestra el liro al introducir el ID
-   
+    //printAllBooks(&catalog[0]);//muestra todos los libros
+    printAllBooks(catalog);// Paso por referencia evita duplicar el catálogo completo en memoria.
+    printIDBook(catalog);//muestra el libro al introducir el ID
+    // Permite consultar la información específica de un libro basado en su identificador único.
+    printStockIDQuantity(catalog);// Incrementa la cantidad disponible de un libro específico.
+    // Modifica directamente el catálogo, mostrando la nueva cantidad.
+    printBookCategory(catalog); // Filtra los libros por categoría y los imprime.
+    // Permite ver todos los libros disponibles de un género dado.
     return 0;
 }
