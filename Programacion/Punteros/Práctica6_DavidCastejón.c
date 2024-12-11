@@ -27,7 +27,10 @@ typedef struct {
 // Imprime los detalles de un libro específico.
 // Uso de un puntero constante 'const Book *' para evitar modificar el contenido del libro.
 void printBook(const Book * OneBook){
-    printf("%d, %s, %s, %.2f, %d, %d. \n",  OneBook->id, OneBook->title,OneBook->author,OneBook->price,OneBook->genre,OneBook->quantity);
+    printf("%d, %s, %s, %.2f, %d, %d. \n",  
+        OneBook->id, OneBook->title,
+        OneBook->author,OneBook->price,
+        OneBook->genre,OneBook->quantity);
 
 }
 
@@ -94,7 +97,8 @@ void printBookCategory(Book * catalog){
         }
     }
 
-
+//argc: número de argumentos recibidos.
+//argv: array de cadenas de texto
 int main(){
 
     Book catalog[MAX_BOOKS] = {
