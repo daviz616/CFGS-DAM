@@ -46,7 +46,7 @@ void printAllBooks( const Book * catalog){
 // Busca e imprime un libro por su ID introducido por el usuario.
 // Uso de paso por referencia para evitar copiar todo el catálogo.
 void printIDBook(const Book * catalog){
-     // La función recibe un puntero constante a un array de libros 'catalog'.
+    // La función recibe un puntero constante a un array de libros 'catalog'.
     // Esto significa que se trabaja directamente con la dirección de memoria del catálogo,
     // en lugar de hacer una copia completa de los datos. 
     // Además, el 'const' asegura que esta función no puede modificar los datos del catálogo.
@@ -134,7 +134,44 @@ void initializeBook(Book *newBook, int id, const char *title, const char *author
     newBook->genre = genre;
     newBook->quantity = quantity;
 }
-//void addBook(Book * catalog, int );
+
+void addBook(Book * catalog){
+
+        int newquant;
+        printf("Enter the number of books to add: ");
+        scanf("%d",&newquant);
+
+    for(int i = 0; i < MAX_BOOKS + newquant; i++){
+        
+        int id_new;
+         printf("Enter the id: ");
+        scanf("%d",&id_new);
+
+        char title_new[80];
+        printf("Enter the title: ");
+        scanf("%c",title_new);
+
+        char author_new[60];
+         printf("Enter the author: ");
+        scanf("%c",author_new);
+
+        float price_new;
+         printf("Enter the price: ");
+        scanf("%f",&price_new);
+
+        int genre_new;
+         printf("Enter the nº of the genre: ");
+        scanf("%d",&genre_new);
+
+        int quantity_new;
+         printf("Enter the quantity or stock: ");
+        scanf("%d",&quantity_new);
+        }
+    
+    catalog = (Book *)realloc(catalog,(MAX_BOOKS + newquant) * sizeof(Book)); 
+
+}
+
 
 //argc: número de argumentos recibidos.
 //argv: array de cadenas de texto
@@ -204,7 +241,7 @@ int main(int argc, char **argv){
         if (strcmp(argv[1], "show") == 0) {
             printAllBooks(catalog);
         } else if (strcmp(argv[1], "add") == 0) {
-            //addBook();
+            addBook(catalog);
             printf("Caso añadir\n");
         }
     }
