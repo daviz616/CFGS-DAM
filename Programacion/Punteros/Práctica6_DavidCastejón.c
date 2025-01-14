@@ -23,7 +23,10 @@ typedef struct {
     int quantity;
 } Book;
 
-int MAX_BOOKS = 40;
+#define MAX_BOOKS 40//Número inicial de libros
+
+int currentBooks = 40;  // Número actual de libros en el catálogo.
+
 
 // Imprime los detalles de un libro específico.
 // Uso de un puntero constante 'const Book *' para evitar modificar el contenido del libro.
@@ -38,7 +41,7 @@ void printBook(const Book * OneBook){
 // Imprime los detalles de todos los libros del catálogo.
 // Se pasa un puntero constante al inicio del array para garantizar que no se modifique.
 void printAllBooks( const Book * catalog){
-    for(int i = 0; i < MAX_BOOKS ; i++){
+    for(int i = 0; i < currentBooks ; i++){
         printBook(&catalog[i]);
         }
 }
@@ -60,6 +63,9 @@ void printIDBook(const Book * catalog){
     }
 }// Si el ID no coincide con ningún libro, simplemente no se realiza ninguna acción.
 
+
+// Función alternativa para imprimir un libro dado su ID, pasando parámetros explícitos (ID de búsqueda).
+// Modifica directamente el puntero 'catalog' al ser un puntero no constante.
 void printIDBook_nq(Book * catalog,const int search){
     for(int i = 0; i < MAX_BOOKS; i++ , catalog++){
         if (catalog->id == search){
@@ -88,6 +94,8 @@ void printStockIDQuantity(Book * catalog){
     }
 }
 
+// Función alternativa para aumentar el stock de un libro dado su ID y cantidad.
+// Usa puntero no constante para poder modificar el catálogo directamente.
 void printStockIDQuantity_nq(Book * catalog, const int id, const int addquantity){
     for(int i = 0; i < MAX_BOOKS; i++, catalog++){
         if (catalog->id == id){
@@ -108,6 +116,8 @@ void printBookCategory(Book * catalog){
     if(category_number < 5){
         printf("Books in that category:\n");
         for(int i = 0; i < MAX_BOOKS; i++){
+              // Comapra el género del libro con el número introducido por el usuario,
+            // si coinciden, se imprime el libro correspondiente.
               if (catalog[i].genre == category_number) {
                     printBook(&catalog[i]);
             }
@@ -116,8 +126,10 @@ void printBookCategory(Book * catalog){
         }
     }
  
- void printcategorynum(Book * catalog, const int category){
+ // Función alternativa que filtra e imprime libros según su género.
+void printcategorynum(Book * catalog, const int category){
         for(int i = 0; i < MAX_BOOKS; i++, catalog++){
+            //Verifica si el género del libro coincide con el género proporcionado como parámetro.
               if (catalog->genre == category) {
                     printBook(catalog);
             }
@@ -125,7 +137,8 @@ void printBookCategory(Book * catalog){
     }
  }
     
-    
+ // Inicializa un libro con sus detalles (ID, título, autor, precio, categoría y cantidad).
+// Utiliza 'strcpy' para copiar cadenas de texto en los campos correspondientes del libro.   
 void initializeBook(Book *newBook, int id, const char *title, const char *author, float price, Category genre, int quantity) {
     newBook->id = id;
     strcpy(newBook->title, title);
@@ -135,6 +148,7 @@ void initializeBook(Book *newBook, int id, const char *title, const char *author
     newBook->quantity = quantity;
 }
 
+//Añade nuevos libros al catálogo mediante realocación dinámica de memoria.
 void addBook(Book ** catalog){//Doble puntero porque lo que quiero actualizar
     // es la dirección de memoria donde se guarda la dirección de memoria del 
     //catalogo para que se actualice con el realloc
@@ -143,7 +157,16 @@ void addBook(Book ** catalog){//Doble puntero porque lo que quiero actualizar
         printf("Enter the number of books to add: ");
         scanf("%d",&newquant);
 
-    for(int i = 0; i < newquant; i++){
+    // Actualizar el total de libros
+    currentBooks += newquant;
+    *catalog = (Book *)realloc(*catalog, currentBooks * sizeof(Book)); 
+        if (*catalog == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+
+    // Rellenar los detalles de los nuevos libros en el catálogo.
+    for(int i = currentBooks - newquant; i < currentBooks; i++){
         
         int id_new;
          printf("Enter the id: ");
@@ -168,13 +191,51 @@ void addBook(Book ** catalog){//Doble puntero porque lo que quiero actualizar
         int quantity_new;
          printf("Enter the quantity or stock: ");
         scanf("%d",&quantity_new);
+        
+        // Inicializa el libro con los detalles obtenidos y lo agrega al catálogo.
+        initializeBook(&(*catalog)[i], id_new, title_new, author_new, price_new, (Category)genre_new, quantity_new);
         }
-    
-    *catalog = (Book *)realloc(*catalog,(MAX_BOOKS + newquant) * sizeof(Book)); 
-
-
 }
 
+// Imprime todos los libros de un autor específico.
+// Si no se encuentra ningún libro del autor, muestra un mensaje indicando la ausencia.
+void printBooksByAuthor(const Book *catalog, const char *author) {
+    int found = 0; // Variable para comprobar si se encontraron libros del autor.
+
+    for (int i = 0; i < currentBooks; i++) {
+        // Si el autor del libro coincide con el autor proporcionado.
+        if (strcmp(catalog[i].author, author) == 0) {
+            // Muestra el libro si hay coincidencia.
+            printBook(&catalog[i]);
+            found = 1; //Se encuentra al menos un libro del autor.
+        }
+    }
+
+    // Si no se encontraron libros:
+    if (!found) {
+        printf("No books found by author %s.\n", author);
+    }
+}
+
+// Muestra el uso del programa, detallando las acciones que el usuario puede realizar con los diferentes comandos.
+void printUsage() {
+    printf("Usage of the library program(assuming you compile the file as library):\n");
+    printf("\t./library all\n");
+    printf("\t\tTo run the full functionality of the program.\n");
+    printf("\t./library show\n");
+    printf("\t\tTo show the entire book catalog.\n");
+    printf("\t./library show ID(number)\n");
+    printf("\t\tTo show the book with the given ID.\n");
+    printf("\t./library category CATEGORY(number)\n");
+    printf("\t\tTo show books in a specific category (0-FICTION, 1-NON_FICTION, 2-POETRY, 3-THEATER, 4-ESSAY).\n");
+    printf("\t./library author (name with quotes)\n");
+    printf("\t\tTo show books by a specific author.\n");
+    printf("\t./library stock ID QUANTITY\n");
+    printf("\t\tTo increase the stock of a book by the given ID and quantity.\n");
+    printf("\t./library add\n");
+    printf("\t\tTo add a book with the information\n");
+
+}
 
 //argc: número de argumentos recibidos.
 //argv: array de cadenas de texto
@@ -234,18 +295,24 @@ int main(int argc, char **argv){
         printf("\t Argument %d: %s\n", i, argv[i]);
     }
 
+//Los ifs funcionan agregandole argumentos, en este caso y generalmente con relación entre lo que hacen y el nombre
     if (argc == 1) {
-        printAllBooks(catalog); // Mostrar todos los libros.
-        printIDBook(catalog);    // Mostrar libro por ID.
-        printStockIDQuantity(catalog); // Incrementar cantidad de un libro.
-        printBookCategory(catalog); // Filtrar libros por categoría.
+        printUsage();
     } 
     if(argc == 2) {
         if (strcmp(argv[1], "show") == 0) {
             printAllBooks(catalog);
         } else if (strcmp(argv[1], "add") == 0) {
-            addBook(&catalog);
+            addBook(&catalog);// Pasamos la variable totalBooks para actualizarla
+            printAllBooks(catalog);  // Mostrar todos los libros después de agregar
         }
+        else if(strcmp(argv[1], "all") == 0) {
+        printAllBooks(catalog); // Mostrar todos los libros.
+        printIDBook(catalog);// Mostrar libro por ID.
+        printStockIDQuantity(catalog); // Incrementar cantidad de un libro.
+        printBookCategory(catalog); // Filtrar libros por categoría.
+
+         }
     }
     if(argc == 3){
         if (strcmp(argv[1], "show") == 0){
@@ -258,8 +325,8 @@ int main(int argc, char **argv){
         printcategorynum(catalog, cat);
         } 
     else if (strcmp(argv[1], "author") == 0) {
-        //char 
-            printf("Caso añadir\n");
+        char *author_name = argv[2];
+        printBooksByAuthor(catalog, author_name);
         }
     }
 
