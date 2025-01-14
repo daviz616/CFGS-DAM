@@ -23,7 +23,7 @@ typedef struct {
     int quantity;
 } Book;
 
-#define MAX_BOOKS 40
+int MAX_BOOKS = 40;
 
 // Imprime los detalles de un libro específico.
 // Uso de un puntero constante 'const Book *' para evitar modificar el contenido del libro.
@@ -135,13 +135,15 @@ void initializeBook(Book *newBook, int id, const char *title, const char *author
     newBook->quantity = quantity;
 }
 
-void addBook(Book * catalog){
+void addBook(Book ** catalog){//Doble puntero porque lo que quiero actualizar
+    // es la dirección de memoria donde se guarda la dirección de memoria del 
+    //catalogo para que se actualice con el realloc
 
         int newquant;
         printf("Enter the number of books to add: ");
         scanf("%d",&newquant);
 
-    for(int i = 0; i < MAX_BOOKS + newquant; i++){
+    for(int i = 0; i < newquant; i++){
         
         int id_new;
          printf("Enter the id: ");
@@ -149,11 +151,11 @@ void addBook(Book * catalog){
 
         char title_new[80];
         printf("Enter the title: ");
-        scanf("%c",title_new);
+        scanf(" %s",title_new);
 
         char author_new[60];
          printf("Enter the author: ");
-        scanf("%c",author_new);
+        scanf(" %s",author_new);
 
         float price_new;
          printf("Enter the price: ");
@@ -168,7 +170,8 @@ void addBook(Book * catalog){
         scanf("%d",&quantity_new);
         }
     
-    catalog = (Book *)realloc(catalog,(MAX_BOOKS + newquant) * sizeof(Book)); 
+    *catalog = (Book *)realloc(*catalog,(MAX_BOOKS + newquant) * sizeof(Book)); 
+
 
 }
 
@@ -241,8 +244,7 @@ int main(int argc, char **argv){
         if (strcmp(argv[1], "show") == 0) {
             printAllBooks(catalog);
         } else if (strcmp(argv[1], "add") == 0) {
-            addBook(catalog);
-            printf("Caso añadir\n");
+            addBook(&catalog);
         }
     }
     if(argc == 3){
