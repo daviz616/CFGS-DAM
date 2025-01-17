@@ -139,32 +139,35 @@ int main(int argc, char **argv){
     if(argc == 2) {
         if (strcmp(argv[1], "show") == 0) {
             printAllBooks(catalog);
-        } else if (strcmp(argv[1], "add") == 0) {
+        }
+        if (strcmp(argv[1], "add") == 0) {
             addBook(&catalog);// Pasamos la variable totalBooks para actualizarla
             printAllBooks(catalog);  // Mostrar todos los libros después de agregar
         }
-        else if(strcmp(argv[1], "all") == 0) {
+        if(strcmp(argv[1], "all") == 0) {
         printAllBooks(catalog); // Mostrar todos los libros.
         printIDBook(catalog);// Mostrar libro por ID.
         printStockIDQuantity(catalog); // Incrementar cantidad de un libro.
         printBookCategory(catalog); // Filtrar libros por categoría.
+        }
 
-         }
     }
     if(argc == 3){
         if (strcmp(argv[1], "show") == 0){
             int id_sol = atoi(argv[2]);
             printIDBook_nq(catalog, id_sol);
-         } 
+        }
+         
+         
         
-    else if (strcmp(argv[1], "category") == 0){
+    if (strcmp(argv[1], "category") == 0){
         int cat = atoi(argv[2]);
         printcategorynum(catalog, cat);
         } 
-    else if (strcmp(argv[1], "author") == 0) {
+    if (strcmp(argv[1], "author") == 0) {
         char *author_name = argv[2];
         printBooksByAuthor(catalog, author_name);
-        }
+        } 
     }
 
     if(argc == 4){
@@ -172,7 +175,7 @@ int main(int argc, char **argv){
         int id = atoi(argv[2]);
         int quant = atoi(argv[3]);
         printStockIDQuantity_nq(catalog, id, quant);
-        } 
+        }
     }
     // Liberar memoria cuando ya no se necesite
     free(catalog);
@@ -238,7 +241,6 @@ void printStockIDQuantity_nq(Book * catalog, const int id, const int addquantity
     for(int i = 0; i < MAX_BOOKS; i++, catalog++){
         if (catalog->id == id){
             catalog->quantity += addquantity;
-            printf("Stock aumented\n ");
             printBook(catalog);
             return;
         }
