@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="caja1">
+    <h1>CABECERA</h1>
+    <p>Los titulos h1 son de la familia alias y son del tamño 28pt, el color de los titulos sera azul</p>
+    <p>Esta cabecera es de color amarillo y las cajas de abajo estan alineadas con flex. 
+    Esta caja en la cabecera pero solo cpntiene el texto.
+    Las cajas contenedoras a las quew afecta flex son naraanjas.
+    Las cajas que contiene rosa,
+    Las cajas tienen propriedad 
+    </p>
+    </div>
+    <div id="caja2">
+        <div class="cajanaranja">
+            <p>Las listas y parrafos de los divs que esten contenidos en 
+                la cabecera seran de la familia Arial como h1 pero de tamaño 12 </p>
+
+            <p>Elemntos qu hay que tener en cuenta:</p>
+            <ol>
+                <li>Cerrar bien los divs</li>
+                <li>Tener cuidado con la posicion</li>
+            </ol>
+        </div>  
+        <div class="cajanaranja">
+            <p>Estos textos de ejemplo, recuerda que no se puede poner la etiqueta 
+            br a no ser de que la necesites para algo...</p>
+        </div>
+        
+        <div class="cajanaranja"> 
+            <p>Estos textos de ejemplo, recuerda que no se puede poner la etiqueta 
+                br a no ser de que la necesites para algo...</p>
+        </div>
+        
+    </div>
+
+    <div id="caja3">
+        <div class="cajamorada">
+            <h2> GUIA PARA ESTA PARTE </h2>
+            <p>h2 es de color blaco , lo demas lo dejamos por defecto</p>
+            <p>En esta caja hay tres cajas que se van a alinear con grid, la cuadricula a crear es de 4x4, 
+                la primera caja ocupa toda la fila de arriba,. Haced las cajas con tracciones, por ejemplo con una fraccion. 
+                La caja central es verde y las distintas cajas son moradas. Hay una separacion entre filas y columnas que permite 
+                ver la cuadricula ya que el fondo de la caja es verde y las otras cajas son moradas. Añadiremos padding 10 pt y justificamos el texto</p>
+        </div>
+
+        <div class="cajamorada">
+            <p>Tu nombre: <input type="text" name="nombre"></p>
+            <p>Tu dirección de correo: <input type="mail" name="correo"> </p>
+            <p>Selecciona como te ha salido: <br>
+                <input type="radio" name="opcion">Bien<br>
+                <input type="radio" name="opcion">Mal<br>
+                <input type="radio" name="opcion">Regular<br>
+                
+            </p>
+            <p>Las opciones del desplegable son: JavaScript,PHP,Java,C#,C++</p>
+            <form action="#">
+                <p>Lenguaje</p>
+                <select name="lenguaje" id="lenguajes">  
+                    <option value="javascript">JavaScript</option>
+                    <option value="php">PHP</option>
+                    <option value="java">Java</option>
+                    <option value="C#">C#</option>
+                    <option value="C++">C++</option>
+                </select>
+                <br>
+                <input type="submit" value="Enviar">
+            </form>           
+        </div>
+        
+        <div  class="cajamorada2">
+            <table border="1" align="center">
+                <tr>
+                    <td>Posicion de celdas</td>
+                    <td>Col1</td>
+                    <td>Col2</td>
+                    <td>Col3</td>
+                    <td>Col4</td>
+                    <td>col5</td>
+                </tr>
+                <tr>
+                    <th>Fila 1</th>
+                    <td rowspan="2">a</td>
+                    <td colspan="2">b</td>
+                    <td colspan="2">C</td>
+                </tr>
+                <tr>
+                    <th>Fila 2</th>
+                    <td rowspan="2">D</td>
+                    <td colspan="2">E</td>
+                    <td rowspan="2">F</td>
+                </tr>
+                <tr>
+                    <th>Fila 3</th>
+                    <td rowspan="2">G</td>
+                    <td rowspan="2" colspan="2">H</td>
+                </tr>
+                <tr>
+                    <th>Fila 4</th>
+                    <td>I</td>
+                    <td>J</td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+    
+</body>
+
+</html>

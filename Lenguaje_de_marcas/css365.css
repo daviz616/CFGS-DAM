@@ -1,0 +1,34 @@
+
+body{
+    background-color: red;
+    float: 100%;
+    border: 15px solid red;
+}
+
+#cajaverde{
+    float: left;
+    background-color: greenyellow;
+    font-size: auto;
+    height:40vh;
+    width: 50vw;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+#cajamorada{
+    background-color: purple;
+    float: left;
+    height:40vh;
+    width: 30vw;
+    padding: 20px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+   
+#cajaamarilla{
+    clear: both; 
+    background-color: yellow;
+    font-size: auto;
+    height:300px;
+    padding: 20px;
+    width: auto;
+}

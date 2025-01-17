@@ -1,0 +1,30 @@
+body{
+    background-color: red;
+    float: 100%;
+   
+}
+
+#cajaverde{
+    position: absolute;
+    background-color: green;
+    height: 50vh;
+    width: 30vw;
+    margin-right:5px; 
+    z-index: 2;     
+
+}
+#cajamorada{
+    position: absolute;
+    background-color: blueviolet;
+    height: 50vh;
+    width: 30vw;
+    left: 60vh;
+    margin-left: 5px;
+}
+#cajaamarilla{
+    position: absolute;
+    background-color: yellow;
+    top: 55vh;
+    height:50vh ;
+
+}

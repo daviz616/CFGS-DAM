@@ -1,0 +1,93 @@
+#caja1 {
+    background-color: red;
+    height: 350px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    top: 0;
+}
+
+.cajanaranja {
+    background-color: orange;
+    color: white;
+    font-family: sans-serif ;
+    font-weight: bold;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%; 
+    height: 100px;
+    text-align: center;
+    z-index: 1;
+}
+
+.cajaazul {
+    background-color: blue;
+    color: white;
+    
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 20px;
+    position: absolute;
+    top: 80px; 
+    left: 6%; 
+    text-align: left;
+    font-size: small;
+    width: 30%;
+    height: 100px; 
+    z-index: 2;
+}
+
+#cajarosa{
+background-color: hsl(327, 100%, 62%);  
+display: grid;
+gap: 5pt;
+grid-template-columns: repeat(2, 1fr);
+justify-content: space-evenly;
+}
+
+#cajaturquesa{
+    background-color: aqua;  
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 5pt;
+}
+
+.cajablanca{
+    background-color: white;  
+}
+
+.cajaamarilla{
+    background-color: yellow;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8%; 
+    height: 200px;
+    text-align: center;
+    z-index: 1;
+}
+
+.cajaverde{
+    background-color: rgb(30, 163, 30); 
+    position: absolute;
+    right: 0%; 
+    text-align: left;
+    font-size: small;
+    width: 30%;
+    height: 484px; 
+    z-index: 2;
+} 
+
+
+table, th, td {
+    border:1px solid black;
+}
+
+body{
+    background-color: rgb(50, 255, 235);
+    margin: 0px;
+}
